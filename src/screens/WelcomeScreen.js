@@ -1,10 +1,11 @@
-import { StyleSheet,View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet,View, Text, TouchableOpacity,Image } from 'react-native'
 import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function WelcomeScreen() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.Page } >
       {/* title */}
@@ -13,15 +14,18 @@ export default function WelcomeScreen() {
 Cazrot
 </Text>
 <Text style={styles.topTxtS}>
-HI, Caz Here For Your Service Click Below To Proceed
+It's CAZ ,Your One CLick bot
 </Text>
 
       </View>
       {/* assistant Image */}
       <View style={styles.middle }>
-
+<Image
+ source={require('../../assets/images/welcome.png')}
+ style={{height: wp(75), width: wp(75)}}
+/>
       </View>
-      <TouchableOpacity style={styles.bottom }>
+      <TouchableOpacity onPress={()=> navigation.navigate('Home')} style={styles.bottom }>
 <Text style={styles.btnText}>Get Started</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -60,19 +64,19 @@ fontWeight:'bold',
 textAlign: 'center',
 },
 topTextO:{
-  fontSize: wp(10), // Set font size to 10% of screen width
+  fontSize: wp(10), 
   fontWeight: 'bold',
-  color: '#707070', // Adjust the color to your preference
+  color: '#707070', 
   textAlign: 'center',
-  // Other text styles..
+ 
 },
 topTxtS:{
-  fontSize: wp(4), // Set font size to 4% of screen width
-  fontWeight: '600', // Equivalent to font-semibold
-  letterSpacing: wp(0.5), // Set letter spacing to 0.5% of screen width
-  color: '#606060', // Adjust the color to your preference
+  fontSize: wp(4), 
+  fontWeight: '600', 
+  letterSpacing: wp(0.5),
+  color: '#606060', 
   textAlign: 'center',
-  // Other text styles...
+ 
 }
 
 })
