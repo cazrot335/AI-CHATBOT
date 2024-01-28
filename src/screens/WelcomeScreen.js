@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
 Cazrot
 </Text>
 <Text style={styles.topTxtS}>
-It's CAZ ,Your One CLick bot
+It's CAZ ,Your One Click bot
 </Text>
 
       </View>
@@ -62,6 +62,8 @@ btnText:{
 color:'white',
 fontWeight:'bold',
 textAlign: 'center',
+fontSize:wp(6),
+
 },
 topTextO:{
   fontSize: wp(10), 
