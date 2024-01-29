@@ -6,10 +6,10 @@ import Features from '../components/Features';
 export default function HomeScreen() {
   const [messages , setMessages] = useState([]);
   return (
- <View style={ {flex:1, backgroundColor:'white', }}>
+ <SafeAreaView style={ {flex:1, backgroundColor:'white',top:30 }}>
   <SafeAreaView style={{flex:1, flexDirection:'column',marginHorizontal:5,}}>
     {/* bot icon */}
-    <View style={{flexDirection:'row',justifyContent:'center',}} >
+    <View style={{flexDirection:'row',justifyContent:'center' }} >
       <Image source={require('../../assets/images/bot.png')} style={{height:hp(15),width:hp(15)}}/>
     </View>
 {/* features or messages */}
@@ -23,6 +23,6 @@ export default function HomeScreen() {
   )
 }
   </SafeAreaView>
- </View>
+ </SafeAreaView>
   )
 }
