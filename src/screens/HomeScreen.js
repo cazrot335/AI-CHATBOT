@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView,Image } from 'react-native'
+import { View, Text, SafeAreaView,Image,ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Features from '../components/Features';
-
+import { dummyMessages } from '../constants/index'
 export default function HomeScreen() {
-  const [messages , setMessages] = useState([]);
+  const [messages , setMessages] = useState(dummyMessages);
   return (
  <SafeAreaView style={ {flex:1, backgroundColor:'white',top:30 }}>
   <SafeAreaView style={{flex:1, flexDirection:'column',marginHorizontal:5,}}>
@@ -15,9 +15,71 @@ export default function HomeScreen() {
 {/* features or messages */}
 {
   messages.length>0?(
-    <View>
-
-    </View>
+    <View style={{flex:1,marginVertical:8}}>
+  <Text  style={{fontSize: wp(5),color:'#4B5563',fontWeight:'600',marginLeft:4}}>Assistant</Text>
+        
+        <View 
+          style={{height: hp(58),backgroundColor:'#E2E8F0',borderRadius:12,padding:16}} 
+          >
+            <ScrollView  
+              // ref={scrollViewRef} 
+              bounces={false} 
+              style={{marginVertical:10}}
+              showsVerticalScrollIndicator={false}
+            >
+              {
+                messages.map((message, index)=>{
+                  if(message.role=='assistant'){
+                    if(message.content.includes('https')){
+                      // result is an ai image
+                      return (
+                        <View key={index} style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                          <View 
+                          style={{padding:8,flex:1,borderRadius:20,backgroundColor:'#D1FAE5', borderTopLeftRadius: 0,}} >
+                              <Image  
+                                source={{uri: message.content}} 
+                                 
+                                resizeMode="contain" 
+                                style={{height: wp(60), width: wp(60),borderRadius:20}} 
+                              />
+                          </View>
+                        </View>
+                        
+                        
+                      )
+                    }else{
+                      // chat gpt response
+                      return (
+                        <View 
+                          key={index} style={{width: wp(70),backgroundColor:'#D1FAE5', padding: 8, borderRadius: 20, borderTopLeftRadius: 0,}} 
+                         >
+                          <Text  style={{fontSize: wp(4), color: '#4B5563'}}  >
+                            {message.content}
+                          </Text>
+                        </View>
+                      )
+                    }
+                  }else{
+                    // user input text
+                    return (
+                      <View key={index} style={{flexDirection:'row',justifyContent:'flex-end', marginVertical:7}}>
+                        <View 
+                          style={{width: wp(70),backgroundColor:'white',padding:'8',borderRadius:8,borderTopRightRadius:0}} 
+                          >
+                          <Text style={{fontSize: wp(4)}}  >
+                            {message.content}
+                          </Text>
+                        </View>
+                      </View>
+                    );
+                  }
+                  
+                  
+                })
+              }
+            </ScrollView>
+        </View>
+    </View >
   ):(
     <Features/>
   )
