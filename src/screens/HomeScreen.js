@@ -1,10 +1,22 @@
-import { View, Text, SafeAreaView,Image,ScrollView } from 'react-native'
+import { View, Text, SafeAreaView,Image,ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Features from '../components/Features';
 import { dummyMessages } from '../constants/index'
 export default function HomeScreen() {
   const [messages , setMessages] = useState(dummyMessages);
+  const [recording,setRecording] = useState(false);
+  const [speaking, setSpeaking] = useState(true);
+
+const clear =()=>{
+  setMessages([]);
+}
+
+const stopSpeaking = ()=>{
+  setSpeaking(false);
+}
+
+
   return (
  <SafeAreaView style={ {flex:1, backgroundColor:'white',top:30 }}>
   <SafeAreaView style={{flex:1, flexDirection:'column',marginHorizontal:5,}}>
@@ -84,6 +96,48 @@ export default function HomeScreen() {
     <Features/>
   )
 }
+
+
+{/* recording, clear and stop buttons */}
+<View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+  {
+    recording?(
+<TouchableOpacity style={{marginVertical:36}}>
+  <Image
+  source={require('../../assets/images/voiceLoading.gif')}
+  style={{borderRadius:999,overflow:'hidden',width:hp(10),height:hp(10)}}
+  />
+</TouchableOpacity>
+    ):(
+<TouchableOpacity style={{marginVertical:36}}>
+  <Image
+  source={require('../../assets/images/recordingIcon.png')}
+  style={{borderRadius:999,overflow:'hidden',width:hp(10),height:hp(10)}}
+  />
+</TouchableOpacity>
+    )
+  }
+
+  {
+    messages.length>0 && (
+      <TouchableOpacity onPress={clear} style={{backgroundColor:'#A0AEC0',borderRadius:16,padding:8,position:'absolute',right:30,}}>
+<Text style={{color:'white',fontWeight:'bold'}}>Clear</Text>
+      </TouchableOpacity>
+    )
+  }
+
+  
+{
+speaking && (
+      <TouchableOpacity onPress={stopSpeaking} style={{backgroundColor:'#EF4444',borderRadius:16,padding:8,position:'absolute',left:30,}}>
+<Text style={{color:'white',fontWeight:'bold'}}>Stop</Text>
+      </TouchableOpacity>
+    )
+  }
+
+</View>
+
+
   </SafeAreaView>
  </SafeAreaView>
   )
